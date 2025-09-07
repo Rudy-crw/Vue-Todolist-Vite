@@ -6,10 +6,10 @@ import RegisterView from '@/views/RegisterView.vue'
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      redirect: '/login', // 當路徑是 / 時，自動跳轉到 /login
-    },
+    // {
+    //   path: '/',
+    //   redirect: '/login', // 當路徑是 / 時，自動跳轉到 /login
+    // },
     {
       path: '/todolist',
       name: 'todolist',
