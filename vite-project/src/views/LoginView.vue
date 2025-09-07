@@ -44,17 +44,19 @@
           <input
             class="formControls_btnSubmit"
             type="button"
-            onclick="javascript:location.href='#todoListPage'"
             @click="handleLogin"
             value="登入"
             required
           />
+          <!-- onclick="javascript:location.href='#todoListPage'" -->
+
           <Router-link class="formControls_btnLink" to="/register"> 註冊帳號</Router-link>
         </form>
       </div>
     </div>
   </div>
 </template>
+
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -92,9 +94,13 @@ const validatePassword = () => {
 const handleLogin = async () => {
   try {
     const response = await login(email.value, password.value)
-    const { token, exp } = response.data
+    const { token, exp, nickname } = response.data
     // 儲存 token
-    document.cookie = `vue3-todolist-token=${token}; expires=${exp}`
+    document.cookie = `vue3-todolist-token=${token}; expires=${exp}; path=/`
+
+    // 將 nickname 儲存到 localStorage
+    localStorage.setItem('nickname', nickname)
+
     alert('登入成功！')
     router.push('/todolist')
   } catch (error) {

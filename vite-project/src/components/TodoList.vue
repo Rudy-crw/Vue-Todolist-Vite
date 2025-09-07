@@ -2,14 +2,17 @@
   <div class="todoList_list">
     <ul class="todoList_tab">
       <li>
-        <a href="#" @click="filterStatus = 'all'" :class="{ active: filterStatus === 'all' }"
+        <a
+          href="#"
+          @click.prevent="filterStatus = 'all'"
+          :class="{ active: filterStatus === 'all' }"
           >全部</a
         >
       </li>
       <li>
         <a
           href="#"
-          @click="filterStatus = 'incomplete'"
+          @click.prevent="filterStatus = 'incomplete'"
           :class="{ active: filterStatus === 'incomplete' }"
           >待完成</a
         >
@@ -17,7 +20,7 @@
       <li>
         <a
           href="#"
-          @click="filterStatus = 'completed'"
+          @click.prevent="filterStatus = 'completed'"
           :class="{ active: filterStatus === 'completed' }"
           >已完成</a
         >
@@ -25,12 +28,15 @@
     </ul>
     <div class="todoList_items">
       <ul class="todoList_item">
+        <!-- 新增toggle-todo-status -->
         <TodoItem
           v-for="todo in filterTodos"
           :key="todo.id"
           :todo="todo"
           @remove-todo="emit('remove-todo', $event)"
-        ></TodoItem>
+          @toggle-todo-status="emit('toggle-todo-status', $event)"
+        >
+        </TodoItem>
       </ul>
       <div class="todoList_statistics">
         <p>{{ incompleteTodos.length }} 個未完成項目</p>
@@ -47,7 +53,10 @@ const props = defineProps({
     required: true,
   },
 })
-const emit = defineEmits(['remove-todo'])
+
+// 在 defineEmits 中新增 'toggle-todo-status'
+const emit = defineEmits(['remove-todo', 'toggle-todo-status'])
+
 const filterStatus = ref('all')
 const filterTodos = computed(() => {
   switch (filterStatus.value) {

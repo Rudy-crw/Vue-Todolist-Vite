@@ -59,10 +59,10 @@
           <input
             class="formControls_btnSubmit"
             type="button"
-            onclick="javascript:location.href='#todoListPage'"
             value="註冊帳號"
             @click="handleRegister"
           />
+          <!-- onclick="javascript:location.href='#todoListPage'" -->
           <Router-link class="formControls_btnLink" to="login">登入</Router-link>
         </form>
       </div>
