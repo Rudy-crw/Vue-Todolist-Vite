@@ -96,7 +96,15 @@ const handleLogin = async () => {
     const response = await login(email.value, password.value)
     const { token, exp, nickname } = response.data
     // 儲存 token
-    document.cookie = `vue3-todolist-token=${token}; expires=${exp}; path=/`
+    // 1. 建立一個 Date 物件
+    // API 回傳的 exp 是「秒」，但 JavaScript 的 Date 物件需要「毫秒」，所以要乘以 1000
+    const expirationDate = new Date(exp * 1000)
+
+    // 2. 將日期轉換成 cookie 需要的 UTC 字串格式
+    const expiresString = expirationDate.toUTCString()
+
+    // 3. 在設定 cookie 時，使用我們轉換好的日期字串
+    document.cookie = `vue3-todolist-token=${token}; expires=${expiresString}; path=/`
 
     // 將 nickname 儲存到 localStorage
     localStorage.setItem('nickname', nickname)
