@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import TodoListView from '@/views/TodoListView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
-
+import TryPiniaView from '@/views/TryPiniaView.vue'
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
@@ -25,6 +25,11 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: RegisterView,
+    },
+    {
+      path: '/try-pinia',
+      name: 'try-pinia',
+      component: TryPiniaView,
     },
   ],
 })
